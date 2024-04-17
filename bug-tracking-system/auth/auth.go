@@ -1,37 +1,12 @@
 package auth
 
-import "github.com/google/uuid"
+import "prueba-tecnica1-labora/bug-tracking-system/models"
 
-type User struct {
-	Id       string
-	Username string
-	Password string
-	Role     string
-}
-
-var (
-	Users = [3]User{
-		{
-			Id:       generateId(),
-			Username: "admin",
-			Password: "root",
-			Role:     "MANAGER",
-		},
-		{
-			Id:       generateId(),
-			Username: "dev",
-			Password: "develop",
-			Role:     "DEVELOPER",
-		},
-		{
-			Id:       generateId(),
-			Username: "qa",
-			Password: "tester",
-			Role:     "TESTER",
-		},
+func GetUserByUsernameAndPassword(username string, pass string) models.User {
+	for idx, user := range models.Users {
+		if user.Username == username && user.Password == pass {
+			return models.Users[idx]
+		}
 	}
-)
-
-func generateId() string {
-	return uuid.New().String()[:8]
+	return models.User{}
 }
